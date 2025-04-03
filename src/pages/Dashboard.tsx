@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -9,6 +8,9 @@ import { Progress } from '@/components/ui/progress';
 import { InfoIcon, FileCheck, AlertTriangle, Trash2, Download, History, Settings } from 'lucide-react';
 import FileUploader from '@/components/FileUploader';
 import AnalysisResult from '@/components/AnalysisResult';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
 
 type MediaType = 'image' | 'video' | 'audio' | null;
 
@@ -45,7 +47,6 @@ const Dashboard = () => {
       
       <main className="flex-grow container py-6">
         <div className="flex flex-col md:flex-row items-start gap-6">
-          {/* Sidebar */}
           <div className="w-full md:w-64 space-y-4">
             <Card>
               <CardContent className="p-4">
@@ -107,7 +108,6 @@ const Dashboard = () => {
             </Card>
           </div>
 
-          {/* Main content */}
           <div className="flex-1">
             <TabsContent value="analyze" className={activeTab === 'analyze' ? 'block' : 'hidden'}>
               <Card>
