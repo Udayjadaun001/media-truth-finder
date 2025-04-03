@@ -2,8 +2,20 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Image, Video, Music } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+  
+  const handleTryNow = () => {
+    const analyzerSection = document.getElementById('analyzer-section');
+    if (analyzerSection) {
+      analyzerSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/register');
+    }
+  };
+
   return (
     <div className="container py-16 md:py-24">
       <div className="max-w-3xl mx-auto text-center">
@@ -15,10 +27,20 @@ const Hero = () => {
           and audio to identify synthetic media with high accuracy.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <Button size="lg" className="bg-deepfake-600 hover:bg-deepfake-700">
+          <Button 
+            size="lg" 
+            className="bg-deepfake-600 hover:bg-deepfake-700"
+            onClick={handleTryNow}
+          >
             Try Now <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <Button size="lg" variant="outline">Learn More</Button>
+          <Button 
+            size="lg" 
+            variant="outline"
+            onClick={() => navigate('/api-docs')}
+          >
+            Learn More
+          </Button>
         </div>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
