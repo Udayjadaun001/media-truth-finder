@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -109,136 +110,138 @@ const Dashboard = () => {
           </div>
 
           <div className="flex-1">
-            <TabsContent value="analyze" className={activeTab === 'analyze' ? 'block' : 'hidden'}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Analyze Media</CardTitle>
-                  <CardDescription>
-                    Upload an image, video, or audio file for deepfake analysis
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {!file ? (
-                    <FileUploader onUpload={handleUpload} />
-                  ) : (
-                    mediaType && <AnalysisResult mediaType={mediaType} file={file} onReset={handleReset} />
-                  )}
-                </CardContent>
-              </Card>
-            </TabsContent>
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
+              <TabsContent value="analyze">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Analyze Media</CardTitle>
+                    <CardDescription>
+                      Upload an image, video, or audio file for deepfake analysis
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {!file ? (
+                      <FileUploader onUpload={handleUpload} />
+                    ) : (
+                      mediaType && <AnalysisResult mediaType={mediaType} file={file} onReset={handleReset} />
+                    )}
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-            <TabsContent value="history" className={activeTab === 'history' ? 'block' : 'hidden'}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Analysis History</CardTitle>
-                  <CardDescription>
-                    View your recent media analysis results
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {recentAnalyses.map((item) => (
-                      <div key={item.id} className="flex items-center justify-between p-4 border rounded-lg">
-                        <div className="flex items-start gap-3">
-                          <div className={`p-2 rounded-md ${
-                            item.result === "Authentic" ? "bg-green-100" : 
-                            item.result === "Suspicious" ? "bg-amber-100" : "bg-red-100"
-                          }`}>
-                            {item.result === "Authentic" ? (
-                              <FileCheck className="h-5 w-5 text-real-500" />
-                            ) : item.result === "Suspicious" ? (
-                              <AlertTriangle className="h-5 w-5 text-amber-500" />
-                            ) : (
-                              <InfoIcon className="h-5 w-5 text-fake-500" />
-                            )}
-                          </div>
-                          <div>
-                            <h4 className="font-medium">{item.name}</h4>
-                            <div className="flex items-center gap-2 text-sm text-gray-500">
-                              <span>{item.date}</span>
-                              <span>•</span>
-                              <span className="capitalize">{item.type}</span>
-                              <span>•</span>
-                              <span className={`font-medium ${getStatusColor(item.result)}`}>{item.result}</span>
+              <TabsContent value="history">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Analysis History</CardTitle>
+                    <CardDescription>
+                      View your recent media analysis results
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {recentAnalyses.map((item) => (
+                        <div key={item.id} className="flex items-center justify-between p-4 border rounded-lg">
+                          <div className="flex items-start gap-3">
+                            <div className={`p-2 rounded-md ${
+                              item.result === "Authentic" ? "bg-green-100" : 
+                              item.result === "Suspicious" ? "bg-amber-100" : "bg-red-100"
+                            }`}>
+                              {item.result === "Authentic" ? (
+                                <FileCheck className="h-5 w-5 text-real-500" />
+                              ) : item.result === "Suspicious" ? (
+                                <AlertTriangle className="h-5 w-5 text-amber-500" />
+                              ) : (
+                                <InfoIcon className="h-5 w-5 text-fake-500" />
+                              )}
+                            </div>
+                            <div>
+                              <h4 className="font-medium">{item.name}</h4>
+                              <div className="flex items-center gap-2 text-sm text-gray-500">
+                                <span>{item.date}</span>
+                                <span>•</span>
+                                <span className="capitalize">{item.type}</span>
+                                <span>•</span>
+                                <span className={`font-medium ${getStatusColor(item.result)}`}>{item.result}</span>
+                              </div>
                             </div>
                           </div>
+                          <div className="flex items-center gap-2">
+                            <Button variant="outline" size="icon">
+                              <Download className="h-4 w-4" />
+                            </Button>
+                            <Button variant="outline" size="icon">
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Button variant="outline" size="icon">
-                            <Download className="h-4 w-4" />
-                          </Button>
-                          <Button variant="outline" size="icon">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-            <TabsContent value="settings" className={activeTab === 'settings' ? 'block' : 'hidden'}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Account Settings</CardTitle>
-                  <CardDescription>
-                    Manage your account preferences and notification settings
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="text-lg font-medium mb-4">Personal Information</h3>
-                      <div className="grid gap-4">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="name">Full Name</Label>
-                            <Input id="name" defaultValue="John Doe" />
+              <TabsContent value="settings">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Account Settings</CardTitle>
+                    <CardDescription>
+                      Manage your account preferences and notification settings
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      <div>
+                        <h3 className="text-lg font-medium mb-4">Personal Information</h3>
+                        <div className="grid gap-4">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="name">Full Name</Label>
+                              <Input id="name" defaultValue="John Doe" />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="email">Email</Label>
+                              <Input id="email" defaultValue="john.doe@example.com" />
+                            </div>
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
-                            <Input id="email" defaultValue="john.doe@example.com" />
+                            <Label htmlFor="company">Company (Optional)</Label>
+                            <Input id="company" placeholder="Your company name" />
                           </div>
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="company">Company (Optional)</Label>
-                          <Input id="company" placeholder="Your company name" />
                         </div>
                       </div>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-medium mb-4">Notification Settings</h3>
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <h4 className="font-medium">Email Notifications</h4>
-                            <p className="text-sm text-muted-foreground">
-                              Receive email notifications about your analysis results
-                            </p>
+                      <div>
+                        <h3 className="text-lg font-medium mb-4">Notification Settings</h3>
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h4 className="font-medium">Email Notifications</h4>
+                              <p className="text-sm text-muted-foreground">
+                                Receive email notifications about your analysis results
+                              </p>
+                            </div>
+                            <Switch checked={true} />
                           </div>
-                          <Switch checked={true} />
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <h4 className="font-medium">Analysis Summaries</h4>
-                            <p className="text-sm text-muted-foreground">
-                              Receive weekly summaries of your analysis activities
-                            </p>
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h4 className="font-medium">Analysis Summaries</h4>
+                              <p className="text-sm text-muted-foreground">
+                                Receive weekly summaries of your analysis activities
+                              </p>
+                            </div>
+                            <Switch checked={false} />
                           </div>
-                          <Switch checked={false} />
                         </div>
                       </div>
+                      <div className="flex justify-end">
+                        <Button className="bg-deepfake-600 hover:bg-deepfake-700">
+                          Save Changes
+                        </Button>
+                      </div>
                     </div>
-                    <div className="flex justify-end">
-                      <Button className="bg-deepfake-600 hover:bg-deepfake-700">
-                        Save Changes
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </main>
