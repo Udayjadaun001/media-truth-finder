@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,23 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				deepfake: {
+					'100': '#f0f7ff',
+					'200': '#c2e0ff',
+					'300': '#99ccff',
+					'400': '#66b2ff',
+					'500': '#3399ff',
+					'600': '#007fff',
+					'700': '#0066cc',
+					'800': '#004c99',
+					'900': '#003366',
+				},
+				fake: {
+					'500': '#ff3333',
+				},
+				real: {
+					'500': '#33cc33',
 				}
 			},
 			borderRadius: {
@@ -84,11 +102,34 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-ring': {
+					'0%': {
+						transform: 'scale(0.8)',
+						opacity: '0.8'
+					},
+					'100%': {
+						transform: 'scale(1.5)',
+						opacity: '0'
+					}
+				},
+				scanning: {
+					'0%': {
+						transform: 'translateY(0%)'
+					},
+					'50%': {
+						transform: 'translateY(100%)'
+					},
+					'100%': {
+						transform: 'translateY(0%)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-ring': 'pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite',
+				'scanning': 'scanning 2s ease-in-out infinite'
 			}
 		}
 	},
